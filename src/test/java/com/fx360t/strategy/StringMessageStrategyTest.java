@@ -35,38 +35,26 @@ public class StringMessageStrategyTest {
 			Mockito.when(firstPlayer.getName()).thenReturn("firstPlayer");
 			Mockito.when(secondPlayer.getIdentity()).thenReturn("secondPlayer");
 			Mockito.when(secondPlayer.getName()).thenReturn("secondPlayer");
-			Mockito.doAnswer((inv) -> {
-				firstRegistered = true;
-				return null;
-			}).when(messageService).register("firstPlayer");
+			Mockito.doAnswer((inv) -> firstRegistered = true).
+					when(messageService).register("firstPlayer");
 
-			Mockito.doAnswer((inv) -> {
-				firstRegistered = false;
-				return null;
-			}).when(messageService).unregister("firstPlayer");
-			Mockito.doAnswer((inv) -> {
-				secondRegistered = true;
-				return null;
-			}).when(messageService).register("secondPlayer");
-			Mockito.doAnswer((inv)->{
-				sentMessage_1 = inv.getArgumentAt(0, String.class);
-				return null;
-			}).when(messageService).sendMessage(Mockito.anyString(), 
+			Mockito.doAnswer((inv) -> firstRegistered = false).
+					when(messageService).unregister("firstPlayer");
+			Mockito.doAnswer((inv) -> secondRegistered = true).
+					when(messageService).register("secondPlayer");
+			Mockito.doAnswer((inv)->sentMessage_1 = inv.getArgumentAt(0, String.class)).
+					when(messageService).sendMessage(Mockito.anyString(), 
 									Mockito.eq("firstPlayer"), 
 									Mockito.eq("secondPlayer"));
-			Mockito.doAnswer((inv)->{
-				sentMessage_2 = inv.getArgumentAt(0, String.class);
-				return null;
-			}).when(messageService).sendMessage(Mockito.anyString(), 
+			Mockito.doAnswer((inv)->sentMessage_2 = inv.getArgumentAt(0, String.class)).
+					when(messageService).sendMessage(Mockito.anyString(), 
 									Mockito.eq("secondPlayer"), 
 									Mockito.eq("firstPlayer"));
-			Mockito.doAnswer((inv)->{
-				return new Message<>(sentMessage_1,"firstPlayer","secondPlayer");
-			}).when(messageService).getNextMessage("secondPlayer");
+			Mockito.doAnswer((inv)->new Message<>(sentMessage_1,"firstPlayer","secondPlayer")).
+					when(messageService).getNextMessage("secondPlayer");
 			
-			Mockito.doAnswer((inv)->{
-				return new Message<>(sentMessage_1,"secondPlayer","firstPlayer");
-			}).when(messageService).getNextMessage("firstPlayer");
+			Mockito.doAnswer((inv)->new Message<>(sentMessage_1,"secondPlayer","firstPlayer")).
+					when(messageService).getNextMessage("firstPlayer");
 			
 		} catch (RemoteException e) {
 			Assert.fail();
@@ -75,6 +63,12 @@ public class StringMessageStrategyTest {
 
 	@Test
 	public void readyTest() {
+		try{
+			new StringMessageStrategy(null);
+			Assert.fail();
+		}catch(NullPointerException npe){
+		}
+		
 		GameStrategy<Message<String>> strategy1 = new StringMessageStrategy(messageService);
 		Assert.assertTrue(strategy1.ready(firstPlayer));
 		Assert.assertFalse(strategy1.ready(firstPlayer));

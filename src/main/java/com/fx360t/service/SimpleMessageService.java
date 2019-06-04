@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
 
 import com.fx360t.strategy.Message;
 
@@ -17,6 +18,14 @@ import com.fx360t.strategy.Message;
 public class SimpleMessageService implements MessageService<String> {
 	private Map<String, BlockingQueue<Message<String>>> userMessages = new ConcurrentHashMap<>();
 
+	protected Map<String,BlockingQueue<Message<String>>> getMessages(){
+		Map<String,BlockingQueue<Message<String>>> result = 
+		userMessages.keySet().stream()
+					.collect(Collectors.toMap(key->key, 
+									key->new LinkedBlockingQueue<>(userMessages.get(key))));
+		
+		return result;
+	}
 	@Override
 	public void register(String... users) {
 		

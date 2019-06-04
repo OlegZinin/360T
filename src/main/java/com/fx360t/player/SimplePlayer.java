@@ -195,15 +195,15 @@ public class SimplePlayer implements Runnable, Serializable, Player {
 		} catch (InterruptedException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
-		//execute main strategy loop
-		gameRunner.execute(this);
 		if (initiator) {
 			System.out.println(name + " starts messaging with " + other.getName());
 			//start the process, send a message to other player
 			Message<String> message = new Message<>(startMessage, name, other.getIdentity());
 			strategy.start(selfRef, message);
 		}
-		
+		//execute main strategy loop
+		gameRunner.execute(this);
+
 	}
 
 	@Override

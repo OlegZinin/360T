@@ -32,23 +32,14 @@ public class SimplePlayGroundTest {
 			Mockito.when(secondPlayer.getName()).thenReturn("secondPlayer");
 			Mockito.when(oneMorePlayer.getIdentity()).thenReturn("oneMorePlayer");
 			Mockito.when(oneMorePlayer.getName()).thenReturn("oneMorePlayer");
-			Mockito.doAnswer((inv) -> {
-				firstInGame = true;
-				return null;
-			}).when(firstPlayer).startToPlay(Mockito.anyBoolean(), Mockito.any());
-			Mockito.doAnswer((inv) -> {
-				secondInGame = true;
-				return null;
-			}).when(secondPlayer).startToPlay(Mockito.anyBoolean(), Mockito.any());
-
-			Mockito.doAnswer((inv) -> {
-				firstInGame = false;
-				return null;
-			}).when(firstPlayer).gameOver();
-			Mockito.doAnswer((inv) -> {
-				secondInGame = false;
-				return null;
-			}).when(secondPlayer).gameOver();
+			Mockito.doAnswer((inv) ->firstInGame = true).
+				    when(firstPlayer).startToPlay(Mockito.anyBoolean(), Mockito.any());
+			Mockito.doAnswer((inv) -> secondInGame = true).
+					when(secondPlayer).startToPlay(Mockito.anyBoolean(), Mockito.any());
+			Mockito.doAnswer((inv) -> firstInGame = false).
+					when(firstPlayer).gameOver();
+			Mockito.doAnswer((inv) -> secondInGame = false).
+					when(secondPlayer).gameOver();
 
 		} catch (RemoteException e) {
 			Assert.fail();
