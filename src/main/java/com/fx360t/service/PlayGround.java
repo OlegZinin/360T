@@ -1,7 +1,5 @@
 package com.fx360t.service;
 
-import java.rmi.RemoteException;
-
 /**
  * A PlayGround interface which provides methods for implementing a game process<br>
  * Typical game process would be represented as follows:<br>

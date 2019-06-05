@@ -100,7 +100,6 @@ public class StringMessageStrategy implements GameStrategy<Message<String>> {
 			return false;
 		}
 		initiatorStrategy = true;
-		// sleep();
 		try {
 			messageService.sendMessage(data.getMessageBody(), 
 					(player.getIdentity()),
@@ -193,7 +192,6 @@ public class StringMessageStrategy implements GameStrategy<Message<String>> {
 		//don't send message if this is initiator strategy and counterSent equals stopValue
 		if (initiatorStrategy && counterSent == stopValue)
 			return;
-		// sleep();
 		try {
 			messageService.sendMessage(reply.getMessageBody(),
 					reply.getSenderName(), 
@@ -211,17 +209,6 @@ public class StringMessageStrategy implements GameStrategy<Message<String>> {
 	private static void handleRemoteException(RemoteException e){
 		System.out.println("Fail to perform an operation due to Exception :" + e.getMessage());
 		e.printStackTrace();
-	}
-	
-	/*
-	 * Simulate a delay when sending messages
-	 */
-	private void sleep() {
-		try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 }
