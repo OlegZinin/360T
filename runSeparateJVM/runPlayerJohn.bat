@@ -1,0 +1,1 @@
+java -cp 360t-players-0.0.1-SNAPSHOT.jar com.fx360t.player.SimplePlayer John "Hi there" localhost:1099

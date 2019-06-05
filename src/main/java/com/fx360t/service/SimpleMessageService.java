@@ -52,13 +52,27 @@ public class SimpleMessageService implements MessageService<String> {
 		}
 		Message<String> mess = new Message<>(message, senderName, receiverName);
 		try {
+			delaySendIfNeeded();
 			userMessages.get(receiverName).put(mess);
 		} catch (InterruptedException e) {
 			System.out.println("Interrupted while sending a message to "+receiverName +": " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Delays execution for testing purposes.
+	 * Delay time can be configured via setting system property {@code message.send.delay}
+	 */
+	private static void delaySendIfNeeded() {
+		Long delay = Long.getLong("message.send.delay");
+		if(delay!=null){
+			try {
+				Thread.sleep(delay.longValue());
+			} catch (InterruptedException e) {
+				//ignore
+			}
+		}
+	}
 	@Override
 	public void unregister(String... users) {
 		if (users != null)

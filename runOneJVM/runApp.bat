@@ -1,0 +1,1 @@
+java -Dmessage.send.delay=1000 -jar 360t-players-0.0.1-SNAPSHOT.jar 

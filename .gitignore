@@ -1,8 +1,9 @@
 /target/
 /.settings/
-
 /.idea/
 .classpath
 .project
 360T.iml
 360T.rar
+/runOneJVM/
+/runSeparateJVM/

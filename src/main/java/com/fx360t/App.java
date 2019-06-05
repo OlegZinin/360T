@@ -18,7 +18,8 @@ import com.fx360t.strategy.StringMessageStrategy;
 /**
  * Main class which starts playground, message service and two players if not in remote mode.<br>
  * Pass argument {@code -remote} to start in remote mode. In this case playground will be waiting until all 
- * remote players registered and then the game will be started.
+ * remote players registered and then the game will be started.<br>
+ * The second argument in remote mode defines a port on which registry will be created 
  * @author Oleg
  */
 public class App {
